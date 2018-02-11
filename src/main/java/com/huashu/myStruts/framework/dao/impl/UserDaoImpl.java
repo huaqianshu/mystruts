@@ -28,6 +28,7 @@ public class UserDaoImpl implements UserDao{
 		}
 	}
 
+	@Override
 	public int saveUser(User user){
 		String s=""+"insert into user(id,user_name,user_idType,user_idcard,id_mobile) values(@@IDENTITY,?,?,?,?)";
 		try {
@@ -51,6 +52,7 @@ public class UserDaoImpl implements UserDao{
 		}
 	}
 
+	@Override
 	public int checkUser(String mobile) {
 		String s=""+"select id from user where user.mobile="+mobile;
 		try {
