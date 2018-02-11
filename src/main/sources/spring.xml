@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package>
+	<service package="com.huashu.myStruts.framework.service">
+	</service>
+	<dao package="com.huashu.myStruts.framework.dao">
+	</dao>
+
+
+</package>
