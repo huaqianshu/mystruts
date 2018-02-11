@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int checkUser(HttpServletRequest req) {
-		// TODO Auto-generated method stub
-		return 0;
+		String mobile = (String) req.getAttribute("mobile");
+		return userDao.checkUser(mobile);
 	}
 
 }
