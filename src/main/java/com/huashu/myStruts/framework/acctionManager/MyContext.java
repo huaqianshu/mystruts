@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.annotation.Annotation;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -18,26 +19,52 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.huashu.myStruts.framework.annotation.Dao;
+import com.huashu.myStruts.framework.annotation.Service;
+
 public class MyContext {
-	private Map<String,Object> classNameContext=new HashMap<>();
-	private Map<String,Object> spaceNameContext=new HashMap<>();
+	public Map<String,Object> classNameContext=new HashMap<>();
+	public Map<String,Object> spaceNameContext=new HashMap<>();
 	public void init(){
 		try {
 			File f = new File("spring.xml");
-			
+			List<Element> list = new ArrayList<>();
 			SAXReader reader = new SAXReader(); 
 			Document doc = reader.read(f);
 			Element root = doc.getRootElement();
-			Iterator<Element> it =root.elementIterator("service");
+			list = root.elements("service");
+			list.addAll(root.elements("dao"));
+			Iterator<Element> it =list.iterator();
 			while(it.hasNext()){
 				Element service = it.next();
 				String packageName = service.attributeValue("package");
 				List<Class<?>> classes = getAllClasses(packageName);
 				for(Class clazz:classes){
-					
+					if(clazz.isInterface())
+						continue;
+					Object obj = clazz.newInstance();
+					classNameContext.put(clazz.getName(),obj );
+					Annotation annotation = clazz.getAnnotation(Service.class);
+					String spaceName="";
+					if(annotation!=null){
+						Service serviceAnnotation = (Service) annotation;
+						spaceName = serviceAnnotation.value();
+						if(spaceName.isEmpty()){
+							spaceName = clazz.getName();
+						}
+					}
+					annotation = clazz.getAnnotation(Dao.class);
+					if(annotation!=null){
+						Dao serviceAnnotation = (Dao) annotation;
+						spaceName = serviceAnnotation.value();
+						if(spaceName.isEmpty()){
+							spaceName = clazz.getName();
+						}
+					}
+					spaceNameContext.put(spaceName, obj);
 				}
 			}
-		} catch (DocumentException | ClassNotFoundException | IOException e) {
+		} catch (DocumentException | ClassNotFoundException | IOException | InstantiationException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
