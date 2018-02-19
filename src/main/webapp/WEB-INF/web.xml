@@ -3,15 +3,15 @@
 
     <display-name>Struts Blank</display-name>
 
-    <filter>
-        <filter-name>mystruts</filter-name>
-        <filter-class>com.huashu.myStruts.framework.servlet.LoginServlet</filter-class>
-    </filter>
+    <servlet>
+        <servlet-name>mystruts</servlet-name>
+        <servlet-class>com.huashu.myStruts.framework.servlet.LoginServlet</servlet-class>
+    </servlet>
 
-    <filter-mapping>
-        <filter-name>struts2</filter-name>
+    <servlet-mapping>
+        <servlet-name>mystruts</servlet-name>
         <url-pattern>*.action</url-pattern>
-    </filter-mapping>
+    </servlet-mapping>
 
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>

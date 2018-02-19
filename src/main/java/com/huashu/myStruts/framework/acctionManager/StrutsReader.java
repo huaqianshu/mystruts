@@ -24,7 +24,7 @@ public class StrutsReader {
 				ActionMapping action = new ActionMapping();
 				action.setName(e.attributeValue("name"));
 				action.setClassName(e.attributeValue("class"));
-				action.setName(e.attributeValue("method"));
+				action.setMethodName(e.attributeValue("method"));
 				Map<String,Result> resultMap = new HashMap<>();
 				
 				Iterator<Element> resultIt = e.elementIterator("Result");

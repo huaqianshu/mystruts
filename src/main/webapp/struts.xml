@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<packet>
+	<action name="register" class="com.huashu.myStruts.framework.action.LoginAction" method="singin">
+		<result name="success">/login</result>
+		<result name="fail" type="redirect">/error.jsp</result>
+	</action>
+	
+	<action name="login" class="com.huashu.myStruts.framework.action.LoginAction" method="checkuser">
+		<result name="success" type="redirect">index.jsp</result>
+		<result name="fail">/login.jsp</result>
+	</action>
+
+</packet>

@@ -23,11 +23,11 @@ public class LoginAction {
 		return "fail";
 	}
 	public String checkuser(HttpServletRequest req){
-		String mobile = (String) req.getAttribute("mobile");
-		UserDao userDao = new UserDaoImpl();
-		int res = userDao.checkUser(mobile);
-		if(res==0)
-			return "success";
+		//String mobile = (String) req.getAttribute("mobile");
+		//UserDao userDao = new UserDaoImpl();
+		//int res = userDao.checkUser(mobile);
+		//if(res==0)
+		//	return "success";
 		return "fail";
 	}
 }
